@@ -55,7 +55,8 @@ long long StringToNumber(char* num);
 //questao 3
 char* cpString(string &p, int ta,int &tam);
 //questao 4
-void p_mes( int ind);
+char* cpString( char* p, int ini, int fim);
+char** breakString( char* p, char b, int ta, int &v);
 //questao 5
 int SearchString( char* v1, char* v2, int ta1, int ta2);
 //questao 6
