@@ -281,7 +281,6 @@ char** breakString( char* p, char b, int ta, int &v)
         }
     }
     ponteiro[qnts]=cpString(p,ini,fim);
-
     return ponteiro;
 }
 //questao 5
