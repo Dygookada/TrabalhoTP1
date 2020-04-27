@@ -121,7 +121,25 @@ int Fibonacci ( int x)
     return Fibonacci(x-1)+Fibonacci(x-2);
 }
 //questao 9
-
+bool regular( int n)
+{
+    while(n%2==0)
+    {
+        n=n/2;
+    }
+    while(n%3==0)
+    {
+        n=n/3;
+    }
+    while(n%5==0)
+    {
+        n=n/5;
+    }
+    if(n==1)
+        return 1;
+    else
+        return 0;
+}
 //questao 10
 int combinacao( int n, int p)
 {
@@ -182,7 +200,6 @@ void caixinha( string t, int n, char c)
     {
        printf("%c",t[i]);
     }
-    puts("");
     for( int i=m+ta; i<n-1; i++)
         printf(" ");
     printf("%c\n",c);
@@ -239,8 +256,9 @@ long long StringToNumber(char* num)
     return number;
 }
 //questao 3
-char* cpString(string &p, int ta,int &tam)
+char* cpString(char* p, int &tam)
 {
+    int ta=Ssize(p);
     char* copy = new char[ta];
     int i;
     for( i=0; i<ta && p[i]!='\0'; i++)
@@ -250,29 +268,53 @@ char* cpString(string &p, int ta,int &tam)
     tam=i;
     return copy;
 }
+
+char* space(char* p, int &tam)
+{
+    int ta=Ssize(p),let=0;
+    for( int i=0; i<ta; i++)
+    {
+        if(p[i]!=' ')
+            let++;
+    }
+    char* copy = new char[let+1];
+    int i,esp=0;
+    for( i=0; i<ta && p[i]!=0; i++)
+    {
+        if(p[i]!=' ')
+        {
+            copy[i-esp]=p[i];
+        }else
+            esp++;
+    }
+    copy[i]=0;
+    tam=let;
+    return copy;
+}
 //questao 4
 char* cpString( char* p, int ini, int fim)
 {
+    cout<<ini<<" "<<fim;
     int i, dif=fim-ini;
     char* copy = new char[dif+1];
-    for( i=0; i<dif && p[ini+i]!='\0'; i++)
+    for( i=0; i<dif; i++)
     {
         copy[i]=p[ini+i];
     }
-    copy[dif]='\0';
+    copy[dif]=0;
     return copy;
 }
 
-char** breakString( char* p, char b, int ta, int &v)
+char** breakString( char* p, char b, int &v)
 {
     int qnts=1,i;
-    for( i=0; i<ta && p[i]!='\0'; i++)
+    for( i=0; p[i]!=0; i++)
         if(p[i]==b)
             qnts++;
     int ini=0,fim=i;
     char** ponteiro = new char*[qnts];
     v=qnts,qnts=0;
-    for( i=0; i<ta && p[i]!='\0'; i++)
+    for( i=0; p[i]!=0; i++)
     {
         if(p[i]==b)
         {
@@ -284,12 +326,12 @@ char** breakString( char* p, char b, int ta, int &v)
     return ponteiro;
 }
 //questao 5
-int SearchString( char* v1, char* v2, int ta1, int ta2)
+int SearchString( char* v1, char* v2)
 {
     int t1,t2,i,ind;
-    for( i=0; v1[i]!='\0' && i<ta1; i++);
+    for( i=0; v1[i]!=0; i++);
     t1=i;
-    for( i=0; v2[i]!='\0' && i<ta2; i++);
+    for( i=0; v2[i]!=0; i++);
     t2=i;
     i=0;
     for( int j=0; j<t1; j++)
@@ -298,10 +340,10 @@ int SearchString( char* v1, char* v2, int ta1, int ta2)
         {
             if(i==0)
                 ind=j;
-            if(i==t2)
-                return ind;
             i++;
-        }else
+        }else if(i==t2)
+            return ind+1;
+        else
             i=0;
     }
     return -1;
@@ -315,7 +357,7 @@ char* SumLongNumber( char* n1, char* n2)
     for( j=0; n2[j]!=0; j++);
     ta2=j;
     int m=max(ta1,ta2)+1,dif=min(ta1,ta2),carry=0,aux;
-    char* res=new char[m+1];
+    char* res=new char[m+2];
     for( int i=0; i<dif; i++)
     {//faco ate o menor
         aux=(n1[ta1-1-i]-'0')+(n2[ta2-1-i]-'0')+carry;
@@ -373,7 +415,10 @@ int Menor( int* vet, int n)
     int me=9999999;
     for( int i=0; i<n; i++)
         if(vet[i]<me)
-            me=vet[i],m=i;
+        {
+            me=vet[i];
+            m=i;
+        }
     return m;
 }
 
@@ -387,7 +432,8 @@ int** MatrizMat( int li, int co)
     return mat;
 }
 
-void LeMat( int** v, int li, int co)
+void
+LeMat( int** v, int li, int co)
 {
     for( int i=0; i<li; i++)
         for( int j=0; j<co; j++)
