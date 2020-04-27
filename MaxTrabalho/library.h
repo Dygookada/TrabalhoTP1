@@ -9,6 +9,7 @@ using namespace std;
 #define pi 3.14159265359
 #define MAX 10000
 #define inf 99999999
+void DeleteMat( int** v, int li);
 void Menu1();
 void Menu2();
 void reseta();
@@ -27,7 +28,7 @@ int fatorial(int n);
 //questao 8
 int Fibonacci ( int x);
 //questao 9
-
+bool regular( int n);
 //questao 10
 int combinacao( int n, int p);
 
@@ -53,12 +54,13 @@ int Lexico ( string* t1, string* t2);
 //questao 1
 long long StringToNumber(char* num);
 //questao 3
-char* cpString(string &p, int ta,int &tam);
+char* cpString(char* p,int &tam);
+char* space(char* p, int &tam);
 //questao 4
 char* cpString( char* p, int ini, int fim);
-char** breakString( char* p, char b, int ta, int &v);
+char** breakString( char* p, char b, int &v);
 //questao 5
-int SearchString( char* v1, char* v2, int ta1, int ta2);
+int SearchString( char* v1, char* v2);
 //questao 6
 char* SumLongNumber( char* n1, char* n2);
 
@@ -73,7 +75,6 @@ int Menor( int* vet, int n);
 int** MatrizMat( int li, int co);
 void LeMat( int** v, int li, int co);
 void ImprimeMat( int** v, int li, int co);
-void DeleteMat( int** v, int li);
 int** SomaMat( int** a, int** b, int m, int n);
 
 #endif // LIBRARY_H

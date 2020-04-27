@@ -5,11 +5,11 @@ int main()
 {
     Menu2();
     int n;
-    string print_funcoes[]={ "(01) Desenha retangulo","(02) Volume esfera","(03) Fatorial","(04) Fibonacci",
+    string print_funcoes[]={ "(01) Desenha um retangulo","(02)Calcula o Volume esfera","(03) Fatorial de n","(04) Fibonacci",
                        "(05) Numero Regular","(06) Combinacoes","(07) Palindromo","(08) Converte minusculas",
                        "(09) Converte maiusculas (19)","(10) Centralizar texto","(11) Ordenar tres numeros",
                        "(12) Tamanho string","(13) Compara string","(14) Converte string para int",
-                       "(15) Remove espaços em branco inicio e fim","(16) Quebrar string","(17) Buscar na string",
+                       "(15) Remove espacos em branco inicio e fim","(16) Quebrar string","(17) Buscar na string",
                        "(18) Soma numeros gigantes","(19) Maior e menor do vetor","(20) Soma matriz"};
     string t,t2;
     char v1[100],v2[100];
@@ -45,33 +45,42 @@ int main()
                 int num1;
                 cout<<"Digite o Fibonacci: ";
                 cin>>num1;
-                Fibonacci ( num1);
+                cout<<Fibonacci ( num1);
                 break;
             case 5:
+                int reg;
+                cout<<"Digite um numero: ";
+                cin>>reg;
+                if(regular(reg))
+                    cout<<"Ele eh regular"<<endl;
+                else
+                    cout<<"Ele nao eh regular"<<endl;
                 break;
             case 6:
                 int n,p;
                 cout<<"A combinacao de ";
                 cin>>n;
-                cout<<" a ";
                 cin>>p;
-                printf("C(%d,%d)",n,p);
-                combinacao(n,p);
+                printf("C(%d,%d)=",n,p);
+                cout<<combinacao(n,p);
                 break;
             case 7:
-                cout<<"Digite uma palavra ";
+                cout<<"Digite uma palavra: ";
                 cin>>t;
-                Palindromo(t);
+                if(Palindromo(t))
+                    cout<<"Eh palindromo\n";
+                else
+                    cout<<"Nao eh palindromo\n";
                 break;
             case 8:
-                cout<<"Digite uma palavra ";
-                cin>>t;
-                TLC( t);
+                cout<<"Digite um texto: ";
+                getline(cin,t);
+                cout<<TLC( t);
                 break;
             case 9:
-                cout<<"Digite uma palavra ";
-                cin>>t;
-                TUC(t);
+                cout<<"Digite um texto: ";
+                getline(cin,t);
+                cout<<TUC(t);
                 break;
             case 10:
                 cout<<"Digite uma palavra ";
@@ -89,126 +98,150 @@ int main()
                 cout<<"Digite 3 numeros para ordena-los\n";
                 cin>>e>>f>>g;
                 Ord3 ( &e, &f, &g);
+                printf("%d %d %d",e,f,g);
                 break;
             case 12:
-                char carac[100];
-                cout<<"Digite uma palavra ";
-                for(int i=0; getchar()!='\n' && i<100; i++)
                 {
-                    scanf("%c",&carac[i]);
+                   char carac[100],aux;
+                   int ii=0;
+                   cout<<"Digite uma palavra ";
+                   while(scanf("%c",&aux) && aux!='\n')
+                   {
+                       carac[ii++]=aux;
+                   }
+                   carac[ii]=0;
+                   cout<<Ssize(carac);
                 }
-                Ssize ( carac);
                 break;
             case 13:
                 cout<<"Digite uma palavra ";
                 cin>>t;
-                cout<<"Digite uma palavra ";
+                cout<<"Digite outra palavra ";
                 cin>>t2;
                 {
                 int lex=Lexico(&t,&t2);
                 if(lex==0)
                     cout<<"Sim,eh lexico\n;";
                 else if (lex==1)
-                    cout<<"Nao,eh lexico\n;";
+                    cout<<"Nao eh lexico\n;";
                else
                     cout<<"Deu erro\n";
                 }
                 break;
             case 14:
                 {
-                char textnum[18];
-                int ii=0;
-                cout<<"Digite um numero ";
-                while(getchar()!='\n')
-                {
-                    scanf("%c",&textnum[ii++]);
-                }
-                cout<<StringToNumber(textnum)<<endl;
+                    char textnum[18],aux;
+                    int ii=0;
+                    cout<<"Digite um numero ";
+                    while(scanf("%c",&aux) && aux!='\n' && ii<18)
+                    {
+                        textnum[ii++]=aux;
+                    }
+                    cout<<StringToNumber(textnum)<<endl;
                 }
                 break;
             case 15:
                 {
-                    cout<<"Digite uma palavra ";
-                    cin>>t;
-                    int td;
-                    char* txt=cpString(t,t.size(),td);
-                    for( int ii=0; ii<td; ii++)
+                    int td,ii=0;
+                    cout<<"Digite uma frase ";
+                    char aux;
+                    while(scanf("%c",&aux) && aux!='\n')
                     {
-                        cout<<txt[ii];
+                        v1[ii++]=aux;
                     }
+                    v1[ii]=0;
+                    char* txt=space(v1,td);
+                    for( int jj=0; jj<td; jj++)
+                    {
+                        cout<<txt[jj];
+                    }
+                    delete [] txt;
                 }
                 break;
             case 16:
                 {
                     int qnts,ii=0;
-                    char pa[100],b;
+                    char pa[100],b,aux;
                     cout<<"Digite uma frase ";
-                    while(getchar()!='\n')
+                    while(scanf("%c",&aux) && aux!='\n')
                     {
-                        scanf("%c",&pa[ii++]);
+                        pa[ii++]=aux;
                     }
+                    pa[ii]=0;
                     cout<<"Digite um char de quebra ";
                     cin>>b;
-                    char** txt=breakString( pa, b, 100, qnts);
+                    char** txt=breakString( pa, b, qnts);
                     for( int iii=0; iii<qnts; iii++)
                     {
-                        for( int jj=0; txt[jj]!=0 && jj<100; jj++)
+                        for( int jj=0; txt[iii][jj]!=0; jj++)
                         {
                             cout<<txt[iii][jj];
                         }
                         cout<<endl;
                     }
+                    delete txt;
                 }
                 break;
             case 17:
                 {
-                    int ta1,ta2,ii=0;
-                    cout<<"Digite o tamanho da string: ";
-                    cin>>ta1;
-                    cout<<"Digite a string: ";
-                    while(getchar()!='\n')
+                    int ii=0;
+                    char aux;
+                    cout<<"Digite a string: "<<endl;
+                    while(scanf("%c",&aux) && aux!='\n')
                     {
-                        scanf("%c",&v1[ii++]);
+                        v1[ii]=aux;
+                        ii++;
                     }
-                    cout<<"Digite o tamanho da string: ";
-                    cin>>ta2;
-                    cout<<"Digite a string: ";
-                    while(getchar()!='\n')
+                    v1[ii]=0;
+                    ii=0;
+                    cout<<"Digite o que procura: "<<endl;
+                    while(scanf("%c",&aux) && aux!='\n')
                     {
-                        scanf("%c",&v1[ii++]);
+                        v2[ii]=aux;
+                        ii++;
                     }
-                    cin>>ta1>>ta2;
-                    SearchString( v1, v2, ta1, ta2);
+                    v2[ii]=0;
+                    cout<<SearchString( v1, v2)<<endl;
                 }
                 break;
             case 18:
                 {
+                    char aux;
                     int ii=0;
                     cout<<"Digite um numero: ";
-                    while(getchar()!='\n')
+                    while(scanf("%c",&aux) && aux!='\n')
                     {
-                        scanf("%c",&v1[ii++]);
+                        v1[ii++]=aux;
                     }
                     cout<<"Digite um numero: ";
                     ii=0;
-                    while(getchar()!='\n')
+                    while(scanf("%c",&aux) && aux!='\n')
                     {
-                        scanf("%c",&v1[ii++]);
+                        v2[ii++]=aux;
                     }
-                    cout<<SumLongNumber( v1, v2)<<endl;
+                    char* numero=SumLongNumber( v1, v2);
+                    if(numero[0]!=0)
+                        printf("1");
+                    for( int i=1; numero[i]!=0; i++)
+                    {
+                        printf("%c",numero[i]);
+                    }
                 }
                 break;
             case 19:
                 {
-                    int m,conj[100];
+                    int m,conj[100],ma,me;
                     cout<<"Digite o numero de elementos do conjunto ";
                     cin>>m;
+                    cout<<"Digite os elementos do conjunto \n";
                     for( int ii=0; ii<m; ii++)
                     {
                         cin>>conj[ii];
                     }
-                    cout<<"O maior elemento do conjunto eh "<<Maior( conj, m)<<endl;
-                    cout<<"O menor elemento do conjunto eh "<<Menor( conj, m)<<endl;
+                    ma=Maior( conj, m);
+                    me=Menor( conj, m);
+                    cout<<"O indice do maior eh "<<ma+1<<" ,e o valor eh "<<conj[ma]<<endl;
+                    cout<<"O indice do menor eh "<<me+1<<" ,e o valor eh "<<conj[me]<<endl;
                 }
                 break;
             case 20:
@@ -221,11 +254,12 @@ int main()
                 {
                     int** vetora=MatrizMat( li, co);
                     int** vetorb=MatrizMat( li, co);
+                    cout<<"Digite os elementos da matriz A\n";
                     LeMat( vetora, li, co);
+                    cout<<"Digite os elementos da matriz B\n";
                     LeMat( vetorb, li, co);
-                    ImprimeMat( vetora, li, co);
-                    ImprimeMat( vetorb, li, co);
                     int** vetorc=SomaMat(vetora,vetorb,li,co);
+                    cout<<"Vetor C=A+B\n";
                     ImprimeMat( vetorc, li, co);
                     DeleteMat( vetora, li);
                     DeleteMat( vetorb, li);
